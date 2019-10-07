@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <!--以最新的IE浏览器引擎去渲染-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title></title>
+    <meta name="description" content=""/>
+    <meta name="keyword" content=""/>
+    <!--告诉搜索引擎爬取信息到index页面去找-->
+    <meta name="robots" content="index,follow">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!--jquery-->
+    <script src="https://cdn.bootcss.com/jquery/1.12.0/jquery.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--vue-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div class="container" id="box">
+    <div class="page-header">
+        <h1>用户管理
+            <small>子标题</small>
+        </h1>
+    </div>
+    <form role="form">
+        <div class="form-group">
+            <label for="exampleInputEmail1">用户名:</label>
+            <input type="text" v-model="username" autocomplete="off" class="form-control" id="exampleInputEmail1" placeholder="请输入用户名">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">年龄:</label>
+            <input type="text" v-model="age" class="form-control" id="exampleInputPassword1" placeholder="请输入年龄">
+        </div>
+        <button type="button" class="btn btn-primary" @click="add()">提交</button>
+        <button type="reset" class="btn btn-danger">重置</button>
+    </form>
+    <table class="table table-bordered table-hover">
+        <caption class="h2 text-info text-center">用户信息表</caption>
+        <tr class="text-danger">
+            <th class="text-center">序号</th>
+            <th class="text-center">名字</th>
+            <th class="text-center">年龄</th>
+            <th class="text-center">操作</th>
+        </tr>
+        <tr class="text-center" v-for="(item,index) in myData">
+            <td>{{index+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.age}}</td>
+            <td>
+                <button class="btn btn-primary btn-sm" @click="nowIndex=index" data-target="#myModal" data-toggle="modal">删除</button>
+            </td>
+        </tr>
+        <tr v-show="myData.length!=0">
+            <td colspan="4" class="text-right">
+                <button data-target="#myModal" @click="changeMsg" data-toggle="modal" class="btn btn-danger btn-sm">删除全部</button>
+            </td>
+        </tr>
+        <tr v-show="myData.length==0">
+            <td colspan="4" class="text-center text-muted">
+                <p>暂无数据...</p>
+            </td>
+        </tr>
+    </table>
+    <!--模态框-->
+    <div role="dialog" id="myModal" class="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">提示信息</h4>
+                </div>
+                <div class="modal-body">
+                    {{msg}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" @click="del(nowIndex)" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#box",
+        data:{
+            username:'',
+            age:'',
+            myData:[],
+            nowIndex:-100,
+            msg:'确认删除吗?'
+        },
+        mounted :{
+        
+        },
+        methods:{
+            getUserData:function(){
+                console.log("32332");
+            },
+            add:function () {
+
+                this.myData.push({name:this.username,age:this.age});
+                this.username = '';
+                this.age = '';
+            },
+            del:function (n) {
+                if(n<0){
+                    this.myData = [];
+                }else{
+                    this.myData.splice(n,1);
+                }
+            },
+            changeMsg:function () {
+                this.msg = '确认删除全部吗?';
+            }
+        }
+    })
+
+
+</script>

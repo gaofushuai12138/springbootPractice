@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    <resultMap id="UserMapper" type="com.example.demo.bean.User">
+        <id column="id" property="userId"></id>
+        <result column="user_name" property="username"></result>
+        <result column="password" property="password"></result>
+    </resultMap>
+
+    <insert id="insertUser">
+        insert into user(user_name,password) values (#{username},#{password})
+    </insert>
+
+    <select id="findSingleUser" resultMap="UserMapper">
+        select * from user where user_name = #{username} and password = #{password}
+    </select>
+
+
+</mapper>
