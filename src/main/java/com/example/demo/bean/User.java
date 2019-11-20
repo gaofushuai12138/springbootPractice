@@ -1,5 +1,9 @@
 package com.example.demo.bean;
 
+
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "用户对象")
 public class User {
 
     private Integer userId;
