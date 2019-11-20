@@ -11,6 +11,7 @@ public interface UserMapper {
 
     User findSingleUser(User user);
 
+    User findUserByUserName(String username);
 
 
 }

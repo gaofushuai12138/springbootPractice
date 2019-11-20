@@ -8,4 +8,6 @@ public interface UserService {
     public User Login(User user) throws Exception;
 
     public int addUser(User user) throws Exception;
+
+    public User findUserByUserName(String username) throws Exception;
 }
