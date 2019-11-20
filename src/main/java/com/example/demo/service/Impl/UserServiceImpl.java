@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
         resOfAdd = userMapper.insertUser(user);
         return resOfAdd;
     }
+
+    @Override
+    public User findUserByUserName(String username) throws Exception {
+        return userMapper.findUserByUserName(username);
+    }
 }

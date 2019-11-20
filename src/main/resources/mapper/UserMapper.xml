@@ -15,5 +15,9 @@
         select * from user where user_name = #{username} and password = #{password}
     </select>
 
+    <select id="findUserByUserName" resultMap="UserMapper">
+        select * from user where user_name = #{username}
+    </select>
+
 
 </mapper>

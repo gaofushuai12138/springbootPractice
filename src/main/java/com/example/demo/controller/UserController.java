@@ -4,6 +4,10 @@ import com.example.demo.bean.Message;
 import com.example.demo.bean.User;
 import com.example.demo.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,12 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Api(value = "用户信息查询",tags = {"用户信息的controller"})
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @ApiOperation(value = "用户登录接口",notes = "登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "用户名",value = "username")
+    })
     public Message LoginForUser(@RequestBody User user){
         try {
             User userInfo = userService.Login(user);
