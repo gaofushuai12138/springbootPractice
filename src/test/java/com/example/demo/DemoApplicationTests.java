@@ -27,4 +27,10 @@ public class DemoApplicationTests {
             userMapper.insertUser(user);
     }
 
+    @Test
+    public void findUser(){
+        User user = userMapper.findUserByUserName("gao");
+        System.out.println(user);
+    }
+
 }
